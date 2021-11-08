@@ -1,30 +1,71 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
+  <nav id="nav">
+      <router-link to="/" >
+        <img src="./assets/images/Icons/home.png" alt="Home icon">
+      </router-link>
+      <router-link to="/about" >
+        <img src="./assets/images/Icons/search.png" alt="Search icon">
+      </router-link>
+      <router-link to="/" >
+        <img src="./assets/images/Icons/plus.png" alt="Plus icon">
+      </router-link>
+      <router-link to="/" >
+        <img src="./assets/images/Icons/bookmark.png" alt="Bookmark icon">
+      </router-link>
+
+  </nav>
   <router-view />
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+body{
+  background-color: #070613;
 }
 
 #nav {
-  padding: 30px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 8vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #070613;
+  border-top: #2c3e50 2px solid;
+  a{
+    text-decoration: none;
+    padding: 0 12px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    &.router-link-exact-active{
+      
+     img{
+       filter: brightness(300%);
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+     }
+     &::after{
+       content: '';
+       position: absolute;
+       width: 50%;
+       height: 50%;
+       bottom: -40%;
+       left: 50%;
+       border-radius: 50%;
+       transform: translateX(-50%);
+       background-color: #2c2670;
+       filter: blur(12px);
 
-    &.router-link-exact-active {
-      color: #42b983;
+
+     }
     }
+    img{
+    width: 32px;
+    transition: all .3s ease;
   }
+  }
+  
 }
 </style>

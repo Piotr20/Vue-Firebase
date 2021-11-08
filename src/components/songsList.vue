@@ -11,7 +11,7 @@
 <script>
 import { getSongs } from "../firebaseInit.js";
 export default {
-  name: "HelloWorld",
+  name: "SongsList",
   data() {
     return {
       songs: Array,
@@ -22,7 +22,6 @@ export default {
   },
   async created() {
     this.songs = await getSongs();
-    
   },
 };
 </script>
