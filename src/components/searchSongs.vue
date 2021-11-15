@@ -18,16 +18,15 @@ export default {
       searchResult: "",
       songs: Array,
       usersSongs: Array,
-      filteredSongs: []
+      filteredSongs: [],
     };
   },
-    async created() {
+  async created() {
     this.songs = await getSongs();
     this.usersSongs = await getUsersSongs();
     for (const song of this.usersSongs) {
       this.songs.push(song);
     }
-    
   },
   methods: {
     onSearch() {
@@ -35,15 +34,13 @@ export default {
       let results = this.songs.filter((song) => {
         const name = song.title.toLowerCase();
         if (name.includes(this.searchResult)) {
-         
           return song;
         }
       });
-      
+
       this.$emit("searchChanged", results);
     },
   },
-
 };
 </script>
 <style lang="scss" scoped>
