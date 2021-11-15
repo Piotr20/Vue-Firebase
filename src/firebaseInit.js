@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore/lite";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 
@@ -22,6 +22,27 @@ const auth = getAuth(app);
 // Get a list of songs from your database
 export async function getSongs() {
   const songsCol = collection(db, "test-songs");
+  const songSnapshot = await getDocs(songsCol);
+  const songsList = songSnapshot.docs.map((doc) => doc.data());
+  return songsList;
+}
+
+export async function addSong(author, title, imageUrl, youtubeLink) {
+  try {
+    const docRef = await addDoc(collection(db, "users-songs"), {
+      author: author,
+      title: title,
+      url: imageUrl,
+      youtube_link: youtubeLink,
+      addedByUsers: true
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+export async function getUsersSongs() {
+  const songsCol = collection(db, "users-songs");
   const songSnapshot = await getDocs(songsCol);
   const songsList = songSnapshot.docs.map((doc) => doc.data());
   return songsList;
