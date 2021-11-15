@@ -5,7 +5,7 @@
       type="text"
       placeholder="Search for songs"
       v-model="searchResult"
-      @keydown="onSearch"
+      @keyup="onSearch"
     />
   </section>
 </template>
