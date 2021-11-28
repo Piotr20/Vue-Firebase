@@ -1,7 +1,10 @@
 <template>
   <section>
     <SongSearch @searchChanged="onSearchChamged" />
-    <SearchResults :searchResult="inputSearchResult" />
+    <SearchResults
+      @songClicked="onSongClicked"
+      :searchResult="inputSearchResult"
+    />
   </section>
 </template>
 <script>
@@ -17,11 +20,16 @@ export default {
   data() {
     return {
       inputSearchResult: Array,
+      clickedSomg: Object,
     };
   },
   methods: {
     onSearchChamged(value) {
       this.inputSearchResult = value;
+    },
+    onSongClicked(value) {
+      this.clickedSomg = value;
+      this.$emit("songToPass", this.clickedSomg);
     },
   },
 };

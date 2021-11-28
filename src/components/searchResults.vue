@@ -6,17 +6,18 @@
     </div>
     <div class="results">
       {{ searchResult.title }}
-      <ul v-for="(song, index) in searchResult" :key="index">
-        <li>
-          <img :src="song.url" alt="" />
-          <div>
-            <h2>{{ song.title }}</h2>
-            <h3>{{ song.author }}</h3>
-          </div>
-          <a :href="song.youtube_link">
-            <img src="../assets/images/Icons/yt-icon.png" alt="" />
-          </a>
-        </li>
+      <ul>
+        <template v-for="(song, index) in searchResult" :key="index">
+          <router-link to="/songDetails">
+            <li @click="openSongDetails(song)">
+              <img :src="song.url" alt="song cover image" />
+              <div>
+                <h2>{{ song.title }}</h2>
+                <h3>{{ song.author }}</h3>
+              </div>
+            </li>
+          </router-link>
+        </template>
       </ul>
     </div>
   </section>
@@ -25,6 +26,17 @@
 export default {
   name: "SearchResults",
   props: ["searchResult"],
+  data() {
+    return {
+      clickedSong: Object,
+    };
+  },
+  methods: {
+    openSongDetails(song) {
+      this.clickedSong = song;
+      this.$emit("songClicked", this.clickedSong);
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -44,16 +56,20 @@ export default {
 .results {
   margin-top: 16px;
   width: 100%;
+  a {
+    text-decoration: none;
+  }
   li {
     background-color: #2c267067;
     border-radius: 15px;
-    margin-bottom: 16px;
+
+    padding: 8px;
     display: flex;
     align-items: center;
     img {
       display: inline;
       object-fit: contain;
-      width: 65px;
+      height: 100%;
     }
     div {
       padding-left: 16px;

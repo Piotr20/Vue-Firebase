@@ -12,12 +12,36 @@
     <router-link to="/add">
       <img src="./assets/images/Icons/plus.png" alt="Plus icon" />
     </router-link>
-    <router-link to="/">
+    <router-link to="/bookmarked">
       <img src="./assets/images/Icons/bookmark.png" alt="Bookmark icon" />
     </router-link>
   </nav>
-  <router-view />
+  <router-view
+    @songToPass="onSongPassed"
+    :clickedSongProp="songProp"
+    @songBookmarked="onSongBookmarked"
+    :likedSongs="likedSongs"
+  />
 </template>
+<script>
+export default {
+  data() {
+    return {
+      songProp: Object,
+      likedSongs: [],
+    };
+  },
+  methods: {
+    onSongPassed(value) {
+      this.songProp = value;
+    },
+    onSongBookmarked(value) {
+      this.likedSongs.push(value);
+      console.log("app array", this.likedSongs);
+    },
+  },
+};
+</script>
 
 <style lang="scss">
 * {
